@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impresión 3D | HF_AVILA Podcast</title>
+  <meta name="description" content="Exploramos el fascinante mundo de la impresión 3D, desde sus conceptos básicos hasta la revolución médica que está generando.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-hf">HF</span><span class="logo-dash">_</span><span class="logo-avila">AVILA</span>
+        </a>
+        <nav class="nav-desktop">
+          <a href="index.html" class="nav-link">Inicio</a>
+          <a href="episodios.html" class="nav-link">Episodios</a>
+          <a href="sobre.html" class="nav-link">Sobre Nosotros</a>
+          <a href="episodios.html" class="btn-nav">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+            Escuchar Ahora
+          </a>
+        </nav>
+        <button class="hamburger" id="hamburger" aria-label="Menú"></button>
+      </div>
+      <nav class="nav-mobile" id="navMobile">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="episodios.html" class="nav-link">Episodios</a>
+        <a href="sobre.html" class="nav-link">Sobre Nosotros</a>
+        <a href="episodios.html" class="btn-mobile">Escuchar Ahora</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="ep-detail-hero">
+    <div class="glow-orb" style="width:600px;height:600px;background:oklch(0.85 0.18 192 / 0.2);top:0;right:0;filter:blur(150px);"></div>
+    <div class="ep-detail-bg">
+      <img src="img/Podcast.jpg" alt="Impresión 3D">
+      <div class="ep-detail-bg-overlay"></div>
+    </div>
+    <div class="container">
+      <div class="ep-detail-content">
+        <a href="episodios.html" class="back-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Volver a Episodios
+        </a>
+        <div class="ep-num-row">
+          <span class="news-number">01</span>
+          <div class="news-line" style="width:128px;flex:none;"></div>
+        </div>
+        <h1 class="ep-detail-title">Impresión 3D</h1>
+        <p class="ep-detail-subtitle">El Futuro de la Fabricación</p>
+        <div class="ep-meta">
+          <div class="ep-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            1:45:00
+          </div>
+          <div class="ep-meta-item">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            15 de enero de 2024
+          </div>
+        </div>
+        <div class="ep-detail-btns">
+          <button class="btn-primary-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Reproducir Episodio
+          </button>
+          <button class="btn-outline-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Compartir
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="ep-body">
+    <div class="glow-orb" style="width:500px;height:500px;background:oklch(0.7 0.2 330 / 0.1);bottom:0;left:0;filter:blur(150px);"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="ep-body-grid">
+
+        <!-- MAIN COLUMN -->
+        <div>
+          <div class="scroll-reveal">
+            <h2 class="ep-about-title">Sobre este episodio</h2>
+            <p class="ep-about-desc">
+              Exploramos el fascinante mundo de la impresión 3D, desde sus conceptos básicos hasta la revolución médica que está generando. Analizamos cómo esta tecnología está transformando industrias completas y qué podemos esperar en el futuro.
+            </p>
+            <div class="topics-list">
+              <span class="topic-tag">Tecnología</span>
+              <span class="topic-tag">Medicina</span>
+              <span class="topic-tag">Innovación</span>
+              <span class="topic-tag">Futuro</span>
+            </div>
+          </div>
+
+          <!-- ACCORDION SECTIONS -->
+          <div class="scroll-reveal" data-delay="100">
+            <h2 class="ep-sections-title">Contenido del Episodio</h2>
+            <p style="color:var(--muted-fg);font-size:0.9rem;margin-bottom:1.5rem;margin-top:-1.5rem;">Haz clic en cada sección para ver el contenido completo</p>
+
+            <!-- ===== 01 ===== -->
+            <div class="ep-accordion" id="sec-01">
+              <button class="ep-accordion-trigger" onclick="toggleAccordion('sec-01')">
+                <div class="ep-accordion-num"><span class="news-number" style="font-size:1.6rem;">01</span></div>
+                <div class="ep-accordion-info">
+                  <p class="ep-accordion-title">¿Qué es la Impresión 3D?</p>
+                  <p class="ep-accordion-subtitle">Definiciones y Conceptos Básicos</p>
+                </div>
+                <div class="ep-accordion-img">
+                  <img src="img/Podcast.jpg" alt="Qué es la Impresión 3D">
+                </div>
+                <div class="ep-accordion-arrow">
+                  <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </button>
+              <div class="ep-accordion-body">
+                <div class="ep-accordion-body-inner">
+                  <div class="ep-accordion-full-img">
+                    <img src="img/Podcast.jpg" alt="Qué es la Impresión 3D">
+                  </div>
+                  <div class="ep-accordion-highlight">
+                    La impresión 3D, o fabricación aditiva, es el proceso de crear objetos tridimensionales a partir de un modelo digital, añadiendo material capa a capa hasta construir la pieza final.
+                  </div>
+                  <p class="ep-accordion-text">
+                    A diferencia de los métodos de manufactura tradicionales que sustraen material (como tornear o fresar), la impresión 3D <em>añade</em> material exactamente donde se necesita, eliminando desperdicios y permitiendo geometrías imposibles de conseguir por otros medios.
+                  </p>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Las tecnologías principales:</strong></p>
+                  <ul class="ep-accordion-bullets">
+                    <li><strong style="color:var(--foreground);">FDM (Modelado por Deposición Fundida):</strong> la más común y económica. Funde un filamento plástico y lo deposita capa a capa. Ideal para prototipos y uso doméstico.</li>
+                    <li><strong style="color:var(--foreground);">SLA (Estereolitografía):</strong> usa un láser ultravioleta para solidificar resina líquida. Produce piezas con altísima resolución y acabado superficial impecable.</li>
+                    <li><strong style="color:var(--foreground);">SLS (Sinterización Selectiva por Láser):</strong> fusiona polvo de nylon o metal con un láser. No requiere soportes y es la preferida en manufactura industrial.</li>
+                    <li><strong style="color:var(--foreground);">Metal (DMLS/SLM):</strong> imprime directamente en acero, titanio o aluminio. Revoluciona la aeronáutica y la medicina.</li>
+                  </ul>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Materiales disponibles hoy:</strong> PLA, ABS, PETG, resinas fotopoliméricas, nylon, TPU flexible, titanio, acero inoxidable, cerámica, concreto y hasta chocolate o tejidos biológicos.</p>
+                  <div class="ep-accordion-tags-row">
+                    <span class="ep-accordion-tag">FDM</span>
+                    <span class="ep-accordion-tag">SLA</span>
+                    <span class="ep-accordion-tag">SLS</span>
+                    <span class="ep-accordion-tag">Fabricación Aditiva</span>
+                    <span class="ep-accordion-tag">Materiales</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== 02 ===== -->
+            <div class="ep-accordion" id="sec-02">
+              <button class="ep-accordion-trigger" onclick="toggleAccordion('sec-02')">
+                <div class="ep-accordion-num"><span class="news-number" style="font-size:1.6rem;">02</span></div>
+                <div class="ep-accordion-info">
+                  <p class="ep-accordion-title">🏥 Revolución Médica</p>
+                  <p class="ep-accordion-subtitle">Impresión 3D en la Medicina Moderna</p>
+                </div>
+                <div class="ep-accordion-img">
+                  <img src="img/medico.jpg" alt="Revolución Médica">
+                </div>
+                <div class="ep-accordion-arrow">
+                  <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </button>
+              <div class="ep-accordion-body">
+                <div class="ep-accordion-body-inner">
+                  <div class="ep-accordion-full-img">
+                    <img src="img/medico.jpg" alt="Impresión 3D en la Medicina">
+                  </div>
+                  <div class="ep-accordion-highlight">
+                    La medicina es probablemente el campo donde la impresión 3D está generando el mayor impacto humano inmediato: prótesis a 50 dólares, implantes a medida y órganos artificiales son ya una realidad.
+                  </div>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Prótesis e implantes personalizados:</strong></p>
+                  <ul class="ep-accordion-bullets">
+                    <li>Una prótesis de mano impresa en 3D cuesta entre $50 y $500, frente a los $10,000–$100,000 de las convencionales. En países en desarrollo esto es transformador.</li>
+                    <li>Implantes óseos de titanio impresos con geometría porosa que imita el hueso real, favoreciendo la integración biológica y reduciendo el rechazo.</li>
+                    <li>Implantes dentales y coronas fabricadas en el consultorio en menos de una hora, eliminando la espera de semanas.</li>
+                  </ul>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Modelos quirúrgicos y planificación:</strong></p>
+                  <ul class="ep-accordion-bullets">
+                    <li>Los cirujanos imprimen réplicas exactas de órganos del paciente a partir de tomografías para planificar operaciones complejas antes de entrar al quirófano.</li>
+                    <li>En cirugías cardíacas pediátricas, la impresión 3D del corazón del bebé ha reducido el tiempo de operación hasta en un 40%.</li>
+                  </ul>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Bio-impresión — el siguiente nivel:</strong></p>
+                  <ul class="ep-accordion-bullets">
+                    <li>Investigadores ya imprimen tejido cartilaginoso, piel para trasplantes y vasos sanguíneos usando células vivas como "tinta".</li>
+                    <li>El primer corazón humano completo impreso en 3D fue presentado por la Universidad de Tel Aviv en 2019, aunque aún no es funcional a escala real.</li>
+                    <li>La meta a 10 años: riñones e hígados funcionales impresos con células del propio paciente, eliminando las listas de espera de trasplantes.</li>
+                  </ul>
+                  <div class="ep-accordion-tags-row">
+                    <span class="ep-accordion-tag">Prótesis</span>
+                    <span class="ep-accordion-tag">Implantes</span>
+                    <span class="ep-accordion-tag">Bio-impresión</span>
+                    <span class="ep-accordion-tag">Cirugía</span>
+                    <span class="ep-accordion-tag">Trasplantes</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== 03 ===== -->
+            <div class="ep-accordion" id="sec-03">
+              <button class="ep-accordion-trigger" onclick="toggleAccordion('sec-03')">
+                <div class="ep-accordion-num"><span class="news-number" style="font-size:1.6rem;">03</span></div>
+                <div class="ep-accordion-info">
+                  <p class="ep-accordion-title">🏗️ Construcción del Futuro</p>
+                  <p class="ep-accordion-subtitle">Edificios y Estructuras Impresas en 3D</p>
+                </div>
+                <div class="ep-accordion-img">
+                  <img src="img/construccion.jpg" alt="Construcción 3D">
+                </div>
+                <div class="ep-accordion-arrow">
+                  <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </button>
+              <div class="ep-accordion-body">
+                <div class="ep-accordion-body-inner">
+                  <div class="ep-accordion-full-img">
+                    <img src="img/construccion.jpg" alt="Construcción 3D">
+                  </div>
+                  <div class="ep-accordion-highlight">
+                    Imprimir una casa en 24 horas por menos de $10,000 ya no es ciencia ficción. La construcción 3D está a punto de resolver la crisis de vivienda global.
+                  </div>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Cómo funciona:</strong></p>
+                  <ul class="ep-accordion-bullets">
+                    <li>Una impresora de gran formato montada sobre rieles o un brazo robótico deposita concreto especial (o materiales locales como adobe) siguiendo un plano digital.</li>
+                    <li>El proceso elimina la necesidad de encofrados, reduce la mano de obra hasta en un 70% y puede trabajar 24/7 sin fatiga.</li>
+                    <li>Los muros se imprimen con cavidades integradas para instalaciones eléctricas, plomería y aislamiento térmico.</li>
+                  </ul>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Casos reales que ya existen:</strong></p>
+                  <ul class="ep-accordion-bullets">
+                    <li><strong style="color:var(--foreground);">ICON (Texas, EUA):</strong> imprimió un barrio completo de viviendas sociales en Austin. Su impresora Vulcan construye 167 m² en menos de 48 horas.</li>
+                    <li><strong style="color:var(--foreground);">Apis Cor (Rusia/Dubai):</strong> imprimió una casa de 37 m² in situ en solo 24 horas por $10,000 en 2017.</li>
+                    <li><strong style="color:var(--foreground);">WASP (Italia):</strong> usa tierra local mezclada con fibras naturales para imprimir viviendas de costo casi cero en zonas sin recursos.</li>
+                    <li><strong style="color:var(--foreground);">NASA:</strong> financia proyectos para imprimir hábitats en la Luna y Marte usando materiales del suelo lunar.</li>
+                  </ul>
+                  <p class="ep-accordion-text">La reducción de costos proyectada es del 30–45% frente a la construcción tradicional, con un desperdicio de material hasta 60% menor.</p>
+                  <div class="ep-accordion-tags-row">
+                    <span class="ep-accordion-tag">Vivienda</span>
+                    <span class="ep-accordion-tag">Concreto 3D</span>
+                    <span class="ep-accordion-tag">ICON</span>
+                    <span class="ep-accordion-tag">Sostenibilidad</span>
+                    <span class="ep-accordion-tag">NASA</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== 04 ===== -->
+            <div class="ep-accordion" id="sec-04">
+              <button class="ep-accordion-trigger" onclick="toggleAccordion('sec-04')">
+                <div class="ep-accordion-num"><span class="news-number" style="font-size:1.6rem;">04</span></div>
+                <div class="ep-accordion-info">
+                  <p class="ep-accordion-title">🎨 Productos Personalizados</p>
+                  <p class="ep-accordion-subtitle">La Era de la Fabricación a Medida</p>
+                </div>
+                <div class="ep-accordion-img">
+                  <img src="img/personalizados.jpg" alt="Productos Personalizados">
+                </div>
+                <div class="ep-accordion-arrow">
+                  <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </button>
+              <div class="ep-accordion-body">
+                <div class="ep-accordion-body-inner">
+                  <div class="ep-accordion-full-img">
+                    <img src="img/personalizados.jpg" alt="Productos Personalizados">
+                  </div>
+                  <div class="ep-accordion-highlight">
+                    Estamos pasando de un mundo de producción en masa idéntica a uno donde cada objeto puede ser único, fabricado exactamente para ti, cuando lo necesitas y donde lo necesitas.
+                  </div>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Del inventario al bajo demanda:</strong></p>
+                  <ul class="ep-accordion-bullets">
+                    <li>Las empresas ya no necesitan almacenar millones de piezas de repuesto. Con un archivo digital y una impresora, cualquier pieza se fabrica en el momento exacto que el cliente la necesita.</li>
+                    <li>Adidas imprime solas de zapatillas adaptadas a la pisada individual de cada corredor, mejorando rendimiento y reduciendo lesiones.</li>
+                    <li>La industria del calzado estima que para 2030 el 25% de los zapatos premium serán fabricados con elementos impresos en 3D a medida.</li>
+                  </ul>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Moda, joyería y diseño:</strong></p>
+                  <ul class="ep-accordion-bullets">
+                    <li>Diseñadores como Iris van Herpen crean prendas con estructuras imposibles de tejer o coser, directamente desde modelos 3D.</li>
+                    <li>La joyería impresa en oro y plata permite crear piezas únicas sin las restricciones del trabajo artesanal tradicional.</li>
+                    <li>Empresas como Shapeways permiten a cualquier persona subir un diseño y recibir su objeto impreso en días.</li>
+                  </ul>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">La "fábrica en casa":</strong> Impresoras domésticas de calidad por menos de $300 democratizan la fabricación. Hoy puedes imprimir repuestos de electrodomésticos, accesorios de cocina, herramientas y piezas de Lego personalizadas desde tu hogar.</p>
+                  <div class="ep-accordion-tags-row">
+                    <span class="ep-accordion-tag">Personalización</span>
+                    <span class="ep-accordion-tag">Adidas</span>
+                    <span class="ep-accordion-tag">Moda 3D</span>
+                    <span class="ep-accordion-tag">Joyería</span>
+                    <span class="ep-accordion-tag">Fab en Casa</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== 05 ===== -->
+            <div class="ep-accordion" id="sec-05">
+              <button class="ep-accordion-trigger" onclick="toggleAccordion('sec-05')">
+                <div class="ep-accordion-num"><span class="news-number" style="font-size:1.6rem;">05</span></div>
+                <div class="ep-accordion-info">
+                  <p class="ep-accordion-title">🔮 Impacto Global</p>
+                  <p class="ep-accordion-subtitle">Oportunidades y Desafíos del Futuro</p>
+                </div>
+                <div class="ep-accordion-img">
+                  <img src="img/impacto.jpg" alt="Impacto Global">
+                </div>
+                <div class="ep-accordion-arrow">
+                  <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </button>
+              <div class="ep-accordion-body">
+                <div class="ep-accordion-body-inner">
+                  <div class="ep-accordion-full-img">
+                    <img src="img/impacto.jpg" alt="Impacto Global de la Impresión 3D">
+                  </div>
+                  <div class="ep-accordion-highlight">
+                    El mercado global de impresión 3D superará los $50 mil millones para 2030. Pero más allá del dinero, esta tecnología rediseñará cómo producimos, consumimos y vivimos.
+                  </div>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Impacto económico y en el empleo:</strong></p>
+                  <ul class="ep-accordion-bullets">
+                    <li>Se estima que la fabricación aditiva eliminará hasta 3 millones de empleos en manufactura tradicional para 2035, principalmente en ensamblaje repetitivo.</li>
+                    <li>Al mismo tiempo, creará nuevos roles: diseñadores 3D, operadores de impresoras industriales, ingenieros de materiales avanzados y técnicos de mantenimiento especializado.</li>
+                    <li>Las cadenas de suministro se acortarán drásticamente: del fabricante en Asia al cliente local en horas, no meses.</li>
+                  </ul>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Impacto medioambiental:</strong></p>
+                  <ul class="ep-accordion-bullets">
+                    <li><strong style="color:var(--foreground);">Reducción de desperdicio:</strong> la fabricación tradicional puede desperdiciar hasta el 90% del material; la impresión 3D usa casi exactamente lo necesario.</li>
+                    <li><strong style="color:var(--foreground);">Menos transporte:</strong> fabricar localmente reduce emisiones de CO₂ de la cadena logística global.</li>
+                    <li><strong style="color:var(--foreground);">Materiales reciclados:</strong> ya existen filamentos hechos de botellas PET recicladas, plástico oceánico y residuos agrícolas.</li>
+                  </ul>
+                  <p class="ep-accordion-text"><strong style="color:var(--foreground);">Desafíos y riesgos:</strong></p>
+                  <ul class="ep-accordion-bullets">
+                    <li>La regulación de armas impresas en 3D es un desafío legal y de seguridad pendiente en muchos países.</li>
+                    <li>Piratería de productos: imprimir sin licencia piezas patentadas plantea conflictos de propiedad intelectual.</li>
+                    <li>La disparidad tecnológica puede ampliar la brecha entre países desarrollados y en desarrollo si no se democratiza el acceso.</li>
+                  </ul>
+                  <div class="ep-accordion-tags-row">
+                    <span class="ep-accordion-tag">Economía</span>
+                    <span class="ep-accordion-tag">Empleo</span>
+                    <span class="ep-accordion-tag">Sostenibilidad</span>
+                    <span class="ep-accordion-tag">Regulación</span>
+                    <span class="ep-accordion-tag">Futuro</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== 06 ===== -->
+            <div class="ep-accordion" id="sec-06">
+              <button class="ep-accordion-trigger" onclick="toggleAccordion('sec-06')">
+                <div class="ep-accordion-num"><span class="news-number" style="font-size:1.6rem;">06</span></div>
+                <div class="ep-accordion-info">
+                  <p class="ep-accordion-title">🎯 Decisiones del Futuro</p>
+                  <p class="ep-accordion-subtitle">¿Qué Imprimirías en 2040?</p>
+                </div>
+                <div class="ep-accordion-arrow" style="margin-left:auto;">
+                  <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </button>
+              <div class="ep-accordion-body">
+                <div class="ep-accordion-body-inner">
+                  <div class="ep-accordion-highlight">
+                    Imagina el año 2040. La impresión 3D es tan común como un horno microondas. Los recursos para fabricar a gran escala son limitados. La humanidad debe elegir en qué concentrar esta tecnología. ¿Cuál sería tu prioridad?
+                  </div>
+                  <p class="ep-accordion-text" style="margin-bottom:1.5rem;">Esta fue la pregunta que lanzamos en el episodio. Selecciona la opción que crees más importante:</p>
+                  <div class="ep-section-options" id="futureOptions">
+                    <button class="ep-section-option" onclick="selectOption(this, 'organos')">🏥 Órganos y Cuerpo</button>
+                    <button class="ep-section-option" onclick="selectOption(this, 'viviendas')">🏗️ Viviendas</button>
+                    <button class="ep-section-option" onclick="selectOption(this, 'bienes')">🎨 Bienes</button>
+                    <button class="ep-section-option" onclick="selectOption(this, 'sostenible')">♻️ Sostenible</button>
+                  </div>
+                  <div id="optionDetail" style="display:none;margin-top:1.5rem;"></div>
+                  <p class="ep-accordion-text" style="margin-top:1.5rem;font-size:0.85rem;font-style:italic;">
+                    En el episodio exploramos los argumentos a favor y en contra de cada opción. No hay respuesta correcta: cada una refleja una visión del tipo de mundo que queremos construir.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- end accordion sections -->
+        </div>
+
+        <!-- SIDEBAR -->
+        <div>
+          <div class="scroll-reveal from-right" data-delay="100">
+            <p class="listen-on-title">Escuchar en</p>
+            <div class="platform-links">
+              <a href="#" class="platform-link">
+                <div class="platform-icon" style="background:#1DB954;">
+                  <svg viewBox="0 0 24 24" fill="black"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                </div>
+                <span class="platform-name">Spotify</span>
+              </a>
+              <a href="#" class="platform-link">
+                <div class="platform-icon" style="background:linear-gradient(to bottom,#F452FF,#832BC1);">
+                  <svg viewBox="0 0 24 24" fill="white"><path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0H5.34zm6.525 3.545a8.444 8.444 0 018.14 10.395.639.639 0 01-.61.525H8.685a.639.639 0 01-.625-.744 5.21 5.21 0 015.1-5.174.639.639 0 01.665.533c.032.19.106.443.212.694.147.346.494.57.868.585a5.228 5.228 0 014.29 3.685.639.639 0 01-.597.847H6.905a.639.639 0 01-.631-.541 8.444 8.444 0 015.6-10.805z"/></svg>
+                </div>
+                <span class="platform-name">Apple Podcasts</span>
+              </a>
+              <a href="#" class="platform-link">
+                <div class="platform-icon" style="background:#FF0000;">
+                  <svg viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </div>
+                <span class="platform-name">YouTube</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end ep-body-grid -->
+    </div>
+  </section>
+
+  <!-- RELATED EPISODES -->
+  <section class="ep-related">
+    <div class="glow-orb" style="width:400px;height:400px;background:oklch(0.85 0.18 192 / 0.1);top:0;right:0;filter:blur(120px);"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="scroll-reveal" style="margin-bottom:2.5rem;">
+        <div class="section-label">
+          <span class="section-label-line"></span>
+          <span class="section-label-text">Más Episodios</span>
+        </div>
+      </div>
+      <div class="episodes-grid">
+        <div class="scroll-reveal" data-delay="0">
+          <a href="#" class="episode-card">
+            <div class="episode-card-img">
+              <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop" alt="Inteligencia Artificial">
+              <div class="episode-img-overlay"></div>
+              <div class="episode-num-badge"><span class="news-number">02</span></div>
+              <div class="episode-play-overlay"><div class="play-circle-sm"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+              <div class="episode-duration"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 1:32:00</div>
+            </div>
+            <div class="episode-card-body">
+              <p class="episode-card-title">Inteligencia Artificial</p>
+              <p class="episode-card-subtitle">Más Allá de ChatGPT</p>
+              <p class="episode-card-date">1 feb. 2024</p>
+              <div class="episode-tags"><span class="episode-tag">IA</span><span class="episode-tag">Tecnología</span></div>
+            </div>
+          </a>
+        </div>
+        <div class="scroll-reveal" data-delay="100">
+          <a href="#" class="episode-card">
+            <div class="episode-card-img">
+              <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&h=600&fit=crop" alt="Energía Renovable">
+              <div class="episode-img-overlay"></div>
+              <div class="episode-num-badge"><span class="news-number">03</span></div>
+              <div class="episode-play-overlay"><div class="play-circle-sm"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+              <div class="episode-duration"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 1:28:00</div>
+            </div>
+            <div class="episode-card-body">
+              <p class="episode-card-title">Energía Renovable</p>
+              <p class="episode-card-subtitle">Transición Energética Global</p>
+              <p class="episode-card-date">15 feb. 2024</p>
+              <div class="episode-tags"><span class="episode-tag">Energía</span><span class="episode-tag">Sostenibilidad</span></div>
+            </div>
+          </a>
+        </div>
+        <div class="scroll-reveal" data-delay="200">
+          <a href="#" class="episode-card">
+            <div class="episode-card-img">
+              <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&h=600&fit=crop" alt="Exploración Espacial">
+              <div class="episode-img-overlay"></div>
+              <div class="episode-num-badge"><span class="news-number">04</span></div>
+              <div class="episode-play-overlay"><div class="play-circle-sm"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+              <div class="episode-duration"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 1:55:00</div>
+            </div>
+            <div class="episode-card-body">
+              <p class="episode-card-title">Exploración Espacial</p>
+              <p class="episode-card-subtitle">La Nueva Carrera al Espacio</p>
+              <p class="episode-card-date">1 mar. 2024</p>
+              <div class="episode-tags"><span class="episode-tag">Espacio</span><span class="episode-tag">Futuro</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="footer-logo">
+            <span class="footer-logo-main"><span style="color:var(--foreground)">HF</span><span style="color:var(--primary)">_</span><span style="color:var(--foreground)">AVILA</span></span>
+            <span class="footer-logo-podcast">PODCAST</span>
+          </a>
+          <p class="footer-desc">Explorando temas de tecnología, ciencia y el futuro. Únete a nuestras conversaciones sobre innovación y el mundo que viene.</p>
+        </div>
+        <div>
+          <p class="footer-col-title">Navegación</p>
+          <ul class="footer-nav-list">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="episodios.html">Episodios</a></li>
+            <li><a href="sobre.html">Sobre Nosotros</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-col-title">Síguenos</p>
+          <div class="footer-social">
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          </div>
+          <p class="footer-platforms-label">Disponible en:</p>
+          <div class="footer-platform-tags">
+            <span class="footer-platform-tag">Spotify</span>
+            <span class="footer-platform-tag">Apple Podcasts</span>
+            <span class="footer-platform-tag">YouTube</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 HF_AVILA Podcast. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function toggleAccordion(id) {
+      const accordion = document.getElementById(id);
+      const isOpen = accordion.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.ep-accordion.open').forEach(a => a.classList.remove('open'));
+      // Open this one if it was closed
+      if (!isOpen) accordion.classList.add('open');
+    }
+
+    const optionDetails = {
+      organos: {
+        title: '🏥 Órganos y Cuerpo',
+        text: 'Priorizar la bio-impresión significa apostar por eliminar las listas de espera de trasplantes, fabricar prótesis accesibles para todos y desarrollar medicamentos personalizados. Es invertir en la equidad de la salud humana a escala global. Para 2040 se estima que bio-impresoras podrían producir riñones funcionales, reduciendo la mortalidad por falla orgánica en un 60%.'
+      },
+      viviendas: {
+        title: '🏗️ Viviendas',
+        text: 'Con más de 1.6 mil millones de personas viviendo en condiciones de vivienda inadecuada, imprimir casas accesibles podría ser el mayor acto humanitario del siglo. Para 2040, impresoras de construcción autónomas podrían erigir viviendas completas en 8 horas usando materiales locales reciclados, erradicando los asentamientos informales en una generación.'
+      },
+      bienes: {
+        title: '🎨 Bienes de Consumo',
+        text: 'Democratizar la fabricación de bienes significa que cualquier persona pueda diseñar y producir lo que necesita, destruyendo la dependencia de cadenas de suministro globales. Electrodomésticos, herramientas, ropa, juguetes — todo fabricado localmente, exactamente según las necesidades del consumidor. Un modelo económico radicalmente más eficiente y justo.'
+      },
+      sostenible: {
+        title: '♻️ Manufactura Sostenible',
+        text: 'Redirigir la impresión 3D hacia la circularidad total: filamentos de plástico oceánico, construcción con residuos agrícolas, piezas de repuesto que extienden la vida útil de cualquier máquina indefinidamente. Para 2040, una cadena de producción 3D completamente circular podría reducir los residuos industriales globales en un 40% y las emisiones de transporte en un 30%.'
+      }
+    };
+
+    function selectOption(btn, key) {
+      const options = document.querySelectorAll('#futureOptions .ep-section-option');
+      options.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const detail = document.getElementById('optionDetail');
+      const info = optionDetails[key];
+      detail.style.display = 'block';
+      detail.innerHTML = `
+        <div class="ep-accordion-highlight">
+          <strong style="display:block;margin-bottom:0.5rem;">${info.title}</strong>
+          ${info.text}
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
