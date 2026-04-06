@@ -3,576 +3,627 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruleta de Participantes</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <title>Ruleta | HF_AVILA</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;}
-    :root{
-      --bg:#0d0d0d;--card:#141414;--primary:#00d8cc;
-      --secondary:#d44db8;--fg:#fafafa;--muted:#888;--border:#282828;
-    }
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden;}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ===== PASSWORD ===== */
-    #passwordScreen{
-      position:fixed;inset:0;background:var(--bg);
-      display:flex;align-items:center;justify-content:center;z-index:1000;
-    }
-    .pw-card{
-      background:var(--card);border:1px solid var(--border);border-radius:1.25rem;
-      padding:3rem 2.5rem;width:100%;max-width:400px;text-align:center;
-    }
-    .pw-icon{
-      width:72px;height:72px;border-radius:50%;
-      background:oklch(0.85 0.18 192 / 0.1);border:2px solid var(--primary);
-      display:flex;align-items:center;justify-content:center;
-      margin:0 auto 1.5rem;box-shadow:0 0 30px oklch(0.85 0.18 192 / 0.3);
-    }
-    .pw-icon svg{width:34px;height:34px;stroke:var(--primary);fill:none;stroke-width:2;}
-    .pw-title{font-family:'Oswald',sans-serif;font-size:1.8rem;font-weight:700;color:var(--fg);margin-bottom:0.4rem;}
-    .pw-sub{font-size:0.88rem;color:var(--muted);margin-bottom:2rem;}
-    .pw-input{
-      width:100%;background:var(--bg);border:2px solid var(--border);color:var(--fg);
-      padding:1rem;border-radius:0.625rem;font-size:1.6rem;text-align:center;
-      letter-spacing:0.4em;font-family:'Inter',sans-serif;font-weight:700;
-      outline:none;transition:border-color 0.3s;margin-bottom:1rem;
-    }
-    .pw-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px oklch(0.85 0.18 192 / 0.2);}
-    .pw-input.err{border-color:#ef4444;animation:shake .4s ease;}
-    @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
-    .pw-btn{
-      width:100%;background:var(--primary);color:#0d0d0d;border:none;
-      padding:1rem;border-radius:0.625rem;font-size:1rem;font-weight:800;
-      cursor:pointer;font-family:'Inter',sans-serif;text-transform:uppercase;
-      letter-spacing:0.08em;transition:all 0.3s;
-    }
-    .pw-btn:hover{transform:translateY(-2px);box-shadow:0 0 25px oklch(0.85 0.18 192 / 0.5);}
-    .pw-err{color:#ef4444;font-size:0.85rem;margin-top:0.75rem;display:none;}
-
-    /* ===== MAIN ===== */
-    #mainScreen{display:none;min-height:100vh;}
-
-    .page{
-      display:flex;flex-direction:column;align-items:center;
-      padding:2rem 1rem 3rem;gap:1.5rem;min-height:100vh;
-    }
-    .page-title{
-      font-family:'Oswald',sans-serif;
-      font-size:clamp(2rem,5vw,3rem);font-weight:700;
-      color:var(--primary);font-style:italic;letter-spacing:-0.02em;
-      text-align:center;margin-bottom:0;
-    }
-    .page-sub{color:var(--muted);font-size:0.9rem;text-align:center;}
-
-    .layout{
-      display:flex;gap:2rem;align-items:flex-start;
-      justify-content:center;width:100%;max-width:1120px;
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: rgba(255,255,255,0.08);
+      --primary: oklch(0.85 0.18 192);
+      --secondary: oklch(0.7 0.2 330);
+      --foreground: #f0f0f5;
+      --muted: rgba(240,240,245,0.5);
     }
 
-    /* WHEEL */
-    .wheel-wrap{display:flex;flex-direction:column;align-items:center;gap:1.25rem;}
-    .canvas-wrap{
-      position:relative;
-      width:min(500px,88vw);height:min(500px,88vw);
-    }
-    #wheelCanvas{width:100%;height:100%;display:block;}
-
-    /* Pointer */
-    .pointer{
-      position:absolute;top:-16px;left:50%;transform:translateX(-50%);
-      width:0;height:0;
-      border-left:14px solid transparent;border-right:14px solid transparent;
-      border-top:30px solid var(--primary);
-      filter:drop-shadow(0 0 10px oklch(0.85 0.18 192 / 0.9));
-      z-index:5;
+    body {
+      background: var(--bg);
+      color: var(--foreground);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Center btn */
-    .center-btn{
-      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-      width:58px;height:58px;border-radius:50%;
-      background:var(--bg);border:3px solid var(--primary);
-      color:var(--primary);font-size:0.55rem;font-weight:900;
-      text-transform:uppercase;letter-spacing:0.04em;
-      cursor:pointer;z-index:10;font-family:'Inter',sans-serif;
-      transition:all 0.3s;display:flex;align-items:center;justify-content:center;
-      box-shadow:0 0 20px oklch(0.85 0.18 192 / 0.3);
+    /* ── PASSWORD SCREEN ── */
+    #passwordScreen {
+      position: fixed; inset: 0; z-index: 1000;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
     }
-    .center-btn:hover:not(:disabled){background:var(--primary);color:#0d0d0d;box-shadow:0 0 35px oklch(0.85 0.18 192 / 0.7);}
-    .center-btn:disabled{opacity:0.4;cursor:not-allowed;}
+    .pass-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: min(380px, 90vw);
+      text-align: center;
+    }
+    .pass-lock {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, oklch(0.85 0.18 192 / 0.2), oklch(0.7 0.2 330 / 0.2));
+      border: 1px solid oklch(0.85 0.18 192 / 0.4);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 22px;
+    }
+    .pass-box h2 { font-size: 1.4rem; margin-bottom: 6px; }
+    .pass-box p { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+    .pass-input {
+      width: 100%; padding: 14px 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--foreground);
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 6px;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 16px;
+    }
+    .pass-input:focus { border-color: var(--primary); }
+    .pass-btn {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, oklch(0.85 0.18 192), oklch(0.7 0.2 330));
+      border: none; border-radius: 10px;
+      color: #000; font-weight: 700; font-size: 1rem;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .pass-btn:hover { opacity: 0.85; }
+    .pass-error {
+      color: oklch(0.7 0.2 330);
+      font-size: 0.85rem;
+      margin-top: 12px;
+      min-height: 20px;
+    }
+    @keyframes shake {
+      0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)}
+    }
+    .shake { animation: shake 0.4s ease; }
 
-    .spin-btn{
-      background:var(--primary);color:#0d0d0d;border:none;
-      padding:1rem 3rem;border-radius:50px;font-size:1.1rem;font-weight:900;
-      cursor:pointer;font-family:'Inter',sans-serif;text-transform:uppercase;
-      letter-spacing:0.08em;transition:all 0.3s;
-      box-shadow:0 0 30px oklch(0.85 0.18 192 / 0.35);
-    }
-    .spin-btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 0 50px oklch(0.85 0.18 192 / 0.6);}
-    .spin-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:none;}
+    /* ── MAIN APP ── */
+    #app { display: none; min-height: 100vh; }
 
-    .reset-btn{
-      background:transparent;border:1px solid var(--border);color:var(--muted);
-      padding:0.5rem 1.25rem;border-radius:50px;font-size:0.8rem;
-      cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.3s;
+    .app-header {
+      padding: 20px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
     }
-    .reset-btn:hover{border-color:var(--primary);color:var(--primary);}
+    .app-logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; }
+    .app-logo span { color: var(--primary); }
+    .header-count {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .header-count strong { color: var(--primary); }
 
-    /* SIDE PANEL */
-    .side-panel{
-      background:var(--card);border:1px solid var(--border);
-      border-radius:0.875rem;padding:1.25rem;
-      width:230px;flex-shrink:0;
-      max-height:540px;overflow-y:auto;
+    .main-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 0;
+      height: calc(100vh - 65px);
     }
-    .panel-title{
-      font-size:0.78rem;font-weight:700;color:var(--secondary);
-      text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;
-      display:flex;align-items:center;gap:0.4rem;
-    }
-    .elim-list{display:flex;flex-direction:column;gap:0.4rem;}
-    .elim-item{
-      font-size:0.78rem;color:var(--muted);
-      padding:0.4rem 0.6rem;background:var(--bg);
-      border-radius:0.35rem;border-left:2px solid var(--secondary);
-      line-height:1.3;
-    }
-    .no-elim{color:var(--muted);font-size:0.82rem;text-align:center;padding:1rem 0;}
 
-    /* RESULT OVERLAY */
-    #resultOverlay{
-      position:fixed;inset:0;background:rgba(0,0,0,0.88);
-      backdrop-filter:blur(12px);display:none;
-      align-items:center;justify-content:center;z-index:500;
+    /* ── WHEEL AREA ── */
+    .wheel-area {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
     }
-    #resultOverlay.show{display:flex;}
-    .result-card{
-      background:var(--card);border:2px solid var(--primary);
-      border-radius:1.25rem;padding:3rem 2.5rem;text-align:center;
-      max-width:480px;width:90%;
-      box-shadow:0 0 100px oklch(0.85 0.18 192 / 0.5);
-      animation:popIn .5s cubic-bezier(.34,1.56,.64,1);
+    .glow-bg {
+      position: absolute; border-radius: 50%; pointer-events: none;
     }
-    @keyframes popIn{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
-    .result-label{
-      font-size:0.75rem;font-weight:700;text-transform:uppercase;
-      letter-spacing:0.2em;color:var(--primary);margin-bottom:0.75rem;
+    .glow-bg-1 {
+      width: 500px; height: 500px;
+      background: oklch(0.85 0.18 192 / 0.06);
+      filter: blur(120px);
+      top: -100px; left: -100px;
     }
-    .result-emoji{font-size:3rem;margin-bottom:1rem;animation:bounce 0.6s ease infinite alternate;}
-    @keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-8px)}}
-    .result-name{
-      font-family:'Oswald',sans-serif;
-      font-size:clamp(1.6rem,4vw,2.5rem);font-weight:700;
-      color:var(--fg);line-height:1.2;margin-bottom:1.75rem;
-      text-shadow:0 0 40px oklch(0.85 0.18 192 / 0.5);
+    .glow-bg-2 {
+      width: 400px; height: 400px;
+      background: oklch(0.7 0.2 330 / 0.06);
+      filter: blur(100px);
+      bottom: -80px; right: -80px;
     }
-    .result-actions{display:flex;flex-direction:column;gap:0.75rem;}
-    .btn-next{
-      background:var(--primary);color:#0d0d0d;border:none;
-      padding:0.875rem;border-radius:0.625rem;font-size:1rem;font-weight:800;
-      cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.3s;
-    }
-    .btn-next:hover{transform:translateY(-2px);box-shadow:0 0 25px oklch(0.85 0.18 192 / 0.5);}
-    .btn-remove{
-      background:transparent;color:var(--secondary);
-      border:2px solid var(--secondary);padding:0.75rem;
-      border-radius:0.625rem;font-size:0.9rem;font-weight:700;
-      cursor:pointer;font-family:'Inter',sans-serif;
-      transition:all 0.3s;text-transform:uppercase;letter-spacing:0.05em;
-    }
-    .btn-remove:hover{background:var(--secondary);color:#fff;}
 
-    /* EMPTY */
-    .empty{text-align:center;padding:2rem;}
-    .empty h2{color:var(--primary);font-size:1.4rem;margin-bottom:0.5rem;}
-    .empty p{color:var(--muted);font-size:0.9rem;}
+    .wheel-title {
+      text-align: center; margin-bottom: 24px; position: relative; z-index: 1;
+    }
+    .wheel-title h1 {
+      font-size: 1.8rem; font-weight: 800; letter-spacing: 2px;
+      background: linear-gradient(135deg, oklch(0.85 0.18 192), oklch(0.7 0.2 330));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .wheel-title p { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar{width:5px;}
-    ::-webkit-scrollbar-track{background:transparent;}
-    ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+    .wheel-wrapper {
+      position: relative; display: inline-block;
+      filter: drop-shadow(0 0 40px oklch(0.85 0.18 192 / 0.2));
+    }
+    #wheelCanvas {
+      display: block;
+      border-radius: 50%;
+      max-width: min(480px, 85vw);
+      max-height: min(480px, 85vw);
+    }
+    .pointer {
+      position: absolute;
+      top: -18px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 28px solid var(--primary);
+      filter: drop-shadow(0 0 6px var(--primary));
+      z-index: 10;
+    }
 
-    @media(max-width:768px){
-      .layout{flex-direction:column;align-items:center;}
-      .side-panel{width:100%;max-width:500px;max-height:180px;}
+    .spin-btn {
+      margin-top: 28px; position: relative; z-index: 1;
+      padding: 16px 56px;
+      background: linear-gradient(135deg, oklch(0.85 0.18 192), oklch(0.7 0.2 330));
+      border: none; border-radius: 50px;
+      color: #000; font-weight: 800; font-size: 1.05rem;
+      cursor: pointer; letter-spacing: 1px;
+      transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px oklch(0.85 0.18 192 / 0.35);
+    }
+    .spin-btn:hover:not(:disabled) {
+      transform: scale(1.04);
+      box-shadow: 0 6px 32px oklch(0.85 0.18 192 / 0.5);
+    }
+    .spin-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* ── SIDE PANEL ── */
+    .side-panel {
+      border-left: 1px solid var(--border);
+      background: var(--surface);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .side-panel-header {
+      padding: 20px 20px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .side-panel-header h3 { font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
+    .eliminated-count {
+      font-size: 1.5rem; font-weight: 800;
+      color: oklch(0.7 0.2 330);
+      margin-top: 4px;
+    }
+
+    .side-panel-list {
+      flex: 1; overflow-y: auto; padding: 12px;
+    }
+    .side-panel-list::-webkit-scrollbar { width: 4px; }
+    .side-panel-list::-webkit-scrollbar-track { background: transparent; }
+    .side-panel-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .eliminated-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 10px;
+      border-radius: 8px;
+      border-bottom: 1px solid var(--border);
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateX(10px)} to{opacity:1;transform:none} }
+    .eliminated-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: oklch(0.7 0.2 330 / 0.2);
+      border: 1px solid oklch(0.7 0.2 330 / 0.4);
+      font-size: 0.7rem; font-weight: 700; color: oklch(0.7 0.2 330);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .eliminated-name { font-size: 0.78rem; color: var(--muted); line-height: 1.3; }
+
+    .empty-state {
+      text-align: center; padding: 40px 20px;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    .empty-state-icon { font-size: 2rem; margin-bottom: 8px; opacity: 0.4; }
+
+    .reset-btn {
+      margin: 12px; padding: 12px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px; color: var(--muted);
+      font-size: 0.82rem; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .reset-btn:hover { border-color: oklch(0.7 0.2 330 / 0.5); color: oklch(0.7 0.2 330); }
+
+    /* ── RESULT MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.75);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid oklch(0.85 0.18 192 / 0.3);
+      border-radius: 20px;
+      padding: 48px 36px;
+      width: min(420px, 90vw);
+      text-align: center;
+      transform: scale(0.9);
+      transition: transform 0.3s;
+      box-shadow: 0 0 60px oklch(0.85 0.18 192 / 0.15);
+    }
+    .modal-overlay.active .modal-box { transform: scale(1); }
+    .modal-confetti { font-size: 3rem; margin-bottom: 12px; }
+    .modal-label {
+      font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--primary); margin-bottom: 12px;
+    }
+    .modal-winner {
+      font-size: 1.5rem; font-weight: 800;
+      line-height: 1.3; margin-bottom: 32px;
+      background: linear-gradient(135deg, oklch(0.85 0.18 192), oklch(0.7 0.2 330));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .modal-actions { display: flex; gap: 12px; }
+    .modal-btn {
+      flex: 1; padding: 14px;
+      border-radius: 10px; font-weight: 700; font-size: 0.9rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .modal-btn-continue {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .modal-btn-continue:hover { border-color: var(--primary); color: var(--primary); }
+    .modal-btn-eliminate {
+      background: linear-gradient(135deg, oklch(0.85 0.18 192), oklch(0.7 0.2 330));
+      border: none; color: #000;
+    }
+    .modal-btn-eliminate:hover { opacity: 0.85; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .main-layout { grid-template-columns: 1fr; height: auto; }
+      .side-panel { border-left: none; border-top: 1px solid var(--border); max-height: 300px; }
+      .wheel-area { padding: 20px 16px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ===== PANTALLA CONTRASEÑA ===== -->
+<!-- PASSWORD SCREEN -->
 <div id="passwordScreen">
-  <div class="pw-card">
-    <div class="pw-icon">
-      <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    </div>
-    <h1 class="pw-title">Acceso Restringido</h1>
-    <p class="pw-sub">Ingresa la contraseña para acceder a la ruleta</p>
-    <input type="password" class="pw-input" id="pwInput" placeholder="••••" maxlength="10" autocomplete="off">
-    <button class="pw-btn" onclick="checkPassword()">Entrar</button>
-    <p class="pw-err" id="pwErr">Contraseña incorrecta. Intenta de nuevo.</p>
+  <div class="pass-box" id="passBox">
+    <div class="pass-lock">🔒</div>
+    <h2>Acceso Restringido</h2>
+    <p>Ingresa la contraseña para acceder a la ruleta</p>
+    <input type="password" class="pass-input" id="passInput" placeholder="••••" maxlength="6"
+      onkeydown="if(event.key==='Enter') checkPass()">
+    <button class="pass-btn" onclick="checkPass()">Ingresar</button>
+    <div class="pass-error" id="passError"></div>
   </div>
 </div>
 
-<!-- ===== PANTALLA PRINCIPAL ===== -->
-<div id="mainScreen">
-  <div class="page">
-    <h1 class="page-title">RULETA DE PARTICIPANTES</h1>
-    <p class="page-sub" id="countLabel">Cargando...</p>
+<!-- MAIN APP -->
+<div id="app">
+  <header class="app-header">
+    <div class="app-logo">HF<span>_</span>AVILA &nbsp;<span style="color:var(--muted);font-weight:400;font-size:0.9rem">Ruleta</span></div>
+    <div class="header-count">Participantes activos: <strong id="activeCount">41</strong></div>
+  </header>
 
-    <div class="layout">
-      <!-- WHEEL -->
-      <div class="wheel-wrap">
-        <div class="canvas-wrap">
-          <div class="pointer"></div>
-          <canvas id="wheelCanvas" width="500" height="500"></canvas>
-          <button class="center-btn" id="centerBtn" onclick="spinWheel()">GIRAR</button>
-        </div>
-        <button class="spin-btn" id="spinBtn" onclick="spinWheel()">🎯 GIRAR RULETA</button>
-        <button class="reset-btn" onclick="resetWheel()">↺ Reiniciar con todos</button>
+  <div class="main-layout">
+    <!-- WHEEL -->
+    <div class="wheel-area">
+      <div class="glow-bg glow-bg-1"></div>
+      <div class="glow-bg glow-bg-2"></div>
+
+      <div class="wheel-title">
+        <h1>RULETA DE PARTICIPANTES</h1>
+        <p>Presiona girar para seleccionar al azar</p>
       </div>
 
-      <!-- PANEL -->
-      <div class="side-panel">
-        <p class="panel-title">
-          <svg width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Ya participaron (<span id="elimCount">0</span>)
-        </p>
-        <div class="elim-list" id="elimList">
-          <p class="no-elim">Nadie eliminado aún</p>
+      <div class="wheel-wrapper">
+        <div class="pointer"></div>
+        <canvas id="wheelCanvas" width="500" height="500"></canvas>
+      </div>
+
+      <button class="spin-btn" id="spinBtn" onclick="spin()">&#9654; GIRAR</button>
+    </div>
+
+    <!-- SIDE PANEL -->
+    <div class="side-panel">
+      <div class="side-panel-header">
+        <h3>Eliminados</h3>
+        <div class="eliminated-count" id="eliminatedCount">0</div>
+      </div>
+      <div class="side-panel-list" id="eliminatedList">
+        <div class="empty-state">
+          <div class="empty-state-icon">📋</div>
+          Nadie eliminado aún
         </div>
       </div>
+      <button class="reset-btn" onclick="resetAll()">↺ Reiniciar todos los participantes</button>
     </div>
   </div>
 </div>
 
-<!-- ===== RESULTADO ===== -->
-<div id="resultOverlay">
-  <div class="result-card">
-    <p class="result-label">✨ ¡Seleccionado!</p>
-    <div class="result-emoji">🎉</div>
-    <h2 class="result-name" id="resultName">NOMBRE</h2>
-    <div class="result-actions">
-      <button class="btn-next" onclick="closeResult()">Continuar sin eliminar →</button>
-      <button class="btn-remove" onclick="removeWinner()">✕ Eliminar de la ruleta</button>
+<!-- RESULT MODAL -->
+<div class="modal-overlay" id="resultModal">
+  <div class="modal-box">
+    <div class="modal-confetti">🎉</div>
+    <div class="modal-label">¡Seleccionado!</div>
+    <div class="modal-winner" id="modalWinnerName"></div>
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-continue" onclick="continueWithout()">Continuar sin eliminar</button>
+      <button class="modal-btn modal-btn-eliminate" onclick="eliminate()">Eliminar de la ruleta</button>
     </div>
   </div>
 </div>
 
 <script>
-// ==================== DATOS ====================
-const ALL_NAMES = [
-  "EVELYN SALAZAR GODINEZ",
-  "MARIA BORBON ANGULO",
-  "DANIA QUIROS ZUÑIGA",
-  "ANA URBINA PEREZ",
-  "ALLISSON SANCHEZ VILLALOBOS",
-  "JOSE FALLAS FONSECA",
-  "JAZMIN GAMBOA CHACON",
-  "MARCO ZUÑIGA FERNANDEZ",
-  "LUIS GAMBOA RETANA",
-  "DIDIANA GUZMAN SEGURA",
-  "NIKOL AGUERO QUIROS",
-  "BRAYAN JIMENEZ MADRIZ",
-  "ANZEL AZOFEIFA ZUÑIGA",
-  "STACEY LOPEZ CECILIANO",
-  "LUIS SOLIS RAMIREZ",
-  "JOSHUA ELIZONDO ABARCA",
-  "LILLIANA VARGAS RAMIREZ",
-  "KENDRA MEZA SOLANO",
-  "DANA CHAVES MONGE",
-  "ALISSON CORDERO FONSECA",
-  "ARIADNA CASCANTE CHINCHILLA",
-  "VALERY DIAZ ACUÑA",
-  "JOSE NARANJO ROJAS",
-  "EVY ARAYA SEGURA",
-  "DYLAN VARGAS AZOFEIFA",
-  "SOFIA CARRANZA JIMENEZ",
-  "EMILIANO ARIAS ARIAS",
-  "SANTIAGO CASTRO ABARCA",
-  "ALISSON AGUILAR CHANTO",
-  "KEILYN CAMACHO ABARCA",
-  "ANAIS BLANCO VARGAS",
-  "JUAN VARGAS GAMBOA",
-  "EDICSON PICADO QUESADA",
-  "HAROLD AVILA HERNANDEZ",
-  "ERICK ABARCA UREÑA",
-  "MARIA CASTRO SALAZAR",
-  "KEVIN PRENDAS CERDAS",
-  "STEISY MORA MORALES",
-  "SEBASTIAN GARRO CASTRO",
-  "KENDRY VICTOR CHAVARRIA",
-  "ANGELICA VARGAS CORDERO"
-];
-
-const COLORS = [
-  '#00d8cc','#d44db8','#6366f1','#f59e0b',
-  '#10b981','#ef4444','#8b5cf6','#0ea5e9',
-  '#f97316','#84cc16','#ec4899','#14b8a6',
-  '#a855f7','#22d3ee','#fb923c','#4ade80',
-  '#f472b6','#60a5fa','#fbbf24','#34d399'
-];
-
-// ==================== ESTADO ====================
-let names = [...ALL_NAMES];
-let eliminated = [];
-let currentAngle = 0;
-let isSpinning = false;
-let winnerIdx = -1;
-let spinStartAngle = 0;
-let targetAngle = 0;
-let spinStartTime = null;
-const SPIN_DURATION = 7000;
-
-const canvas = document.getElementById('wheelCanvas');
-const ctx = canvas.getContext('2d');
-
-// ==================== CONTRASEÑA ====================
-document.getElementById('pwInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') checkPassword();
-});
-
-function checkPassword() {
-  const input = document.getElementById('pwInput');
-  const err = document.getElementById('pwErr');
-  if (input.value === '2611') {
-    document.getElementById('passwordScreen').style.display = 'none';
-    document.getElementById('mainScreen').style.display = 'block';
-    updateCountLabel();
-    drawWheel();
-  } else {
-    input.classList.add('err');
-    err.style.display = 'block';
-    input.value = '';
-    setTimeout(() => input.classList.remove('err'), 500);
-  }
-}
-
-// ==================== DIBUJO ====================
-function updateCountLabel() {
-  document.getElementById('countLabel').textContent =
-    names.length > 0
-      ? `${names.length} participante${names.length !== 1 ? 's' : ''} en la ruleta`
-      : 'No quedan participantes';
-}
-
-function getDisplayName(fullName) {
-  const parts = fullName.trim().split(' ');
-  if (names.length > 30) return parts[0]; // solo primer nombre
-  if (names.length > 18) return parts[0] + (parts[1] ? ' ' + parts[1] : ''); // nombre + 1er apellido
-  return parts.slice(0, 3).join(' '); // nombre + 2 apellidos
-}
-
-function drawWheel(highlightIdx = -1) {
-  const size = canvas.width;
-  const cx = size / 2;
-  const cy = size / 2;
-  const radius = cx - 14;
-
-  ctx.clearRect(0, 0, size, size);
-
-  if (names.length === 0) {
-    // Círculo vacío
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
-    ctx.fillStyle = '#141414';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(0,216,204,0.3)';
-    ctx.lineWidth = 4;
-    ctx.stroke();
-    ctx.fillStyle = '#888';
-    ctx.font = 'bold 16px Inter, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('¡Sin participantes!', cx, cy);
-    return;
-  }
-
-  const n = names.length;
-  const arc = (2 * Math.PI) / n;
-
-  for (let i = 0; i < n; i++) {
-    const start = currentAngle + i * arc;
-    const end = start + arc;
-    const color = COLORS[i % COLORS.length];
-    const isWinner = (i === highlightIdx);
-
-    // Segmento
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, radius, start, end);
-    ctx.closePath();
-    ctx.fillStyle = isWinner ? lightenColor(color) : color;
-    ctx.fill();
-
-    // Borde
-    ctx.strokeStyle = isWinner ? '#ffffff' : 'rgba(0,0,0,0.35)';
-    ctx.lineWidth = isWinner ? 2.5 : 1.2;
-    ctx.stroke();
-
-    // Texto
-    if (arc > 0.04) {
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(start + arc / 2);
-      ctx.textAlign = 'right';
-      ctx.fillStyle = '#ffffff';
-      ctx.shadowColor = 'rgba(0,0,0,0.9)';
-      ctx.shadowBlur = 4;
-      const fontSize = Math.max(7, Math.min(13, 320 / n));
-      ctx.font = `bold ${fontSize}px Inter, sans-serif`;
-      let text = getDisplayName(names[i]);
-      const maxW = radius - 38;
-      while (ctx.measureText(text).width > maxW && text.length > 2) text = text.slice(0, -1);
-      if (text !== getDisplayName(names[i])) text = text.slice(0, -1) + '…';
-      ctx.fillText(text, radius - 16, fontSize * 0.35);
-      ctx.restore();
+  function checkPass() {
+    const val = document.getElementById('passInput').value.trim();
+    const err = document.getElementById('passError');
+    if (val === '2611') {
+      document.getElementById('passwordScreen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      drawWheel();
+    } else {
+      err.textContent = 'Contraseña incorrecta. Inténtalo de nuevo.';
+      const box = document.getElementById('passBox');
+      box.classList.remove('shake');
+      void box.offsetWidth;
+      box.classList.add('shake');
+      document.getElementById('passInput').value = '';
     }
   }
 
-  // Aro exterior
-  ctx.beginPath();
-  ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
-  ctx.strokeStyle = 'rgba(0,216,204,0.5)';
-  ctx.lineWidth = 5;
-  ctx.stroke();
+  const ALL_NAMES = [
+    'EVELYN SALAZAR GODINEZ',
+    'MARIA BORBON ANGULO',
+    'DANIA QUIROS ZUÑIGA',
+    'ANA URBINA PEREZ',
+    'ALLISSON SANCHEZ VILLALOBOS',
+    'JOSE FALLAS FONSECA',
+    'JAZMIN GAMBOA CHACON',
+    'MARCO ZUÑIGA FERNANDEZ',
+    'LUIS GAMBOA RETANA',
+    'DIDIANA GUZMAN SEGURA',
+    'NIKOL AGUERO QUIROS',
+    'BRAYAN JIMENEZ MADRIZ',
+    'ANZEL AZOFEIFA ZUÑIGA',
+    'STACEY LOPEZ CECILIANO',
+    'LUIS SOLIS RAMIREZ',
+    'JOSHUA ELIZONDO ABARCA',
+    'LILLIANA VARGAS RAMIREZ',
+    'KENDRA MEZA SOLANO',
+    'DANA CHAVES MONGE',
+    'ALISSON CORDERO FONSECA',
+    'ARIADNA CASCANTE CHINCHILLA',
+    'VALERY DIAZ ACUÑA',
+    'JOSE NARANJO ROJAS',
+    'EVY ARAYA SEGURA',
+    'DYLAN VARGAS AZOFEIFA',
+    'SOFIA CARRANZA JIMENEZ',
+    'EMILIANO ARIAS ARIAS',
+    'SANTIAGO CASTRO ABARCA',
+    'ALISSON AGUILAR CHANTO',
+    'KEILYN CAMACHO ABARCA',
+    'ANAIS BLANCO VARGAS',
+    'JUAN VARGAS GAMBOA',
+    'EDICSON PICADO QUESADA',
+    'HAROLD AVILA HERNANDEZ',
+    'ERICK ABARCA UREÑA',
+    'MARIA CASTRO SALAZAR',
+    'KEVIN PRENDAS CERDAS',
+    'STEISY MORA MORALES',
+    'SEBASTIAN GARRO CASTRO',
+    'KENDRY VICTOR CHAVARRIA',
+    'ANGELICA VARGAS CORDERO'
+  ];
 
-  // Botón central
-  ctx.beginPath();
-  ctx.arc(cx, cy, 30, 0, 2 * Math.PI);
-  ctx.fillStyle = '#0d0d0d';
-  ctx.fill();
-  ctx.strokeStyle = '#00d8cc';
-  ctx.lineWidth = 3;
-  ctx.stroke();
-}
+  const COLORS = [
+    '#00c9b1','#7c3aed','#e11d48','#f59e0b','#10b981',
+    '#3b82f6','#ec4899','#14b8a6','#8b5cf6','#f97316',
+    '#06b6d4','#84cc16','#a855f7','#ef4444','#22d3ee',
+    '#fb923c','#4ade80','#c084fc','#38bdf8','#fbbf24'
+  ];
 
-function lightenColor(hex) {
-  // Aclarar color para el ganador
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  const mix = v => Math.min(255, Math.round(v + (255 - v) * 0.35));
-  return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
-}
+  let activeNames = [...ALL_NAMES];
+  let eliminatedNames = [];
+  let currentAngle = 0;
+  let spinning = false;
+  let winnerIdx = -1;
+  let highlightIdx = -1;
 
-// ==================== GIRO ====================
-function spinWheel() {
-  if (isSpinning || names.length === 0) return;
+  const canvas = document.getElementById('wheelCanvas');
+  const ctx = canvas.getContext('2d');
 
-  const n = names.length;
-  const arc = (2 * Math.PI) / n;
+  function drawWheel() {
+    const W = canvas.width, H = canvas.height;
+    const cx = W / 2, cy = H / 2;
+    const n = activeNames.length;
+    if (n === 0) {
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = 'rgba(255,255,255,0.1)';
+      ctx.beginPath(); ctx.arc(cx, cy, cx - 4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 18px sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('Sin participantes', cx, cy);
+      return;
+    }
 
-  // Determinar ganador al azar
-  winnerIdx = Math.floor(Math.random() * n);
+    ctx.clearRect(0, 0, W, H);
+    const arc = (2 * Math.PI) / n;
+    const r = cx - 4;
 
-  // Calcular rotación exacta: centro del segmento ganador → arriba (−π/2)
-  const pointerAngle = -Math.PI / 2;
-  const winnerMid = winnerIdx * arc + arc / 2;
-  let delta = pointerAngle - (currentAngle + winnerMid);
-  delta = ((delta % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-  delta += (6 + Math.floor(Math.random() * 5)) * 2 * Math.PI; // 6–10 vueltas
+    for (let i = 0; i < n; i++) {
+      const startA = currentAngle + i * arc;
+      const endA = startA + arc;
+      const color = COLORS[i % COLORS.length];
 
-  targetAngle = currentAngle + delta;
-  spinStartAngle = currentAngle;
-  spinStartTime = null;
-  isSpinning = true;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, startA, endA);
+      ctx.closePath();
 
-  document.getElementById('spinBtn').disabled = true;
-  document.getElementById('centerBtn').disabled = true;
+      if (i === highlightIdx) {
+        ctx.fillStyle = lighten(color);
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 20;
+      } else {
+        ctx.fillStyle = color;
+        ctx.shadowBlur = 0;
+      }
+      ctx.fill();
+      ctx.shadowBlur = 0;
 
-  requestAnimationFrame(animate);
-}
+      ctx.strokeStyle = 'rgba(0,0,0,0.25)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
 
-function easeOut(t) {
-  // Quintic ease-out para desaceleración suave
-  return 1 - Math.pow(1 - t, 5);
-}
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(startA + arc / 2);
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
 
-function animate(ts) {
-  if (!spinStartTime) spinStartTime = ts;
-  const elapsed = ts - spinStartTime;
-  const progress = Math.min(elapsed / SPIN_DURATION, 1);
-  const eased = easeOut(progress);
+      const name = activeNames[i];
+      const fontSize = n <= 20 ? 11 : n <= 30 ? 9 : 8;
+      ctx.font = `700 ${fontSize}px 'Segoe UI', sans-serif`;
+      ctx.fillStyle = '#fff';
+      ctx.shadowColor = 'rgba(0,0,0,0.6)';
+      ctx.shadowBlur = 3;
 
-  currentAngle = spinStartAngle + (targetAngle - spinStartAngle) * eased;
-  drawWheel();
+      const maxLen = n <= 15 ? 22 : n <= 25 ? 18 : 14;
+      const displayName = name.length > maxLen ? name.substring(0, maxLen) + '…' : name;
+      ctx.fillText(displayName, r - 10, 0);
+      ctx.restore();
+    }
 
-  if (progress < 1) {
-    requestAnimationFrame(animate);
-  } else {
-    currentAngle = targetAngle % (2 * Math.PI);
-    isSpinning = false;
-    // Dibujar con segmento ganador iluminado
-    drawWheel(winnerIdx);
-    document.getElementById('spinBtn').disabled = false;
-    document.getElementById('centerBtn').disabled = false;
-    setTimeout(showResult, 600);
+    ctx.beginPath();
+    ctx.arc(cx, cy, 28, 0, Math.PI * 2);
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 28);
+    grad.addColorStop(0, '#1a1a2e');
+    grad.addColorStop(1, '#0d0d1a');
+    ctx.fillStyle = grad;
+    ctx.shadowColor = 'rgba(0,200,180,0.4)';
+    ctx.shadowBlur = 12;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = 'rgba(0,200,180,0.6)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
   }
-}
 
-// ==================== RESULTADO ====================
-function showResult() {
-  if (winnerIdx < 0 || winnerIdx >= names.length) return;
-  document.getElementById('resultName').textContent = names[winnerIdx];
-  document.getElementById('resultOverlay').classList.add('show');
-}
+  function lighten(hex) {
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    return `rgb(${Math.min(255,r+80)},${Math.min(255,g+80)},${Math.min(255,b+80)})`;
+  }
 
-function closeResult() {
-  document.getElementById('resultOverlay').classList.remove('show');
-  drawWheel(); // quitar highlight
-  winnerIdx = -1;
-}
-
-function removeWinner() {
-  if (winnerIdx < 0 || winnerIdx >= names.length) return;
-  const winner = names[winnerIdx];
-  eliminated.push(winner);
-  names.splice(winnerIdx, 1);
-  winnerIdx = -1;
-
-  updateEliminatedPanel();
-  updateCountLabel();
-
-  if (names.length === 0) {
+  function spin() {
+    if (spinning || activeNames.length < 2) return;
+    spinning = true;
+    highlightIdx = -1;
     document.getElementById('spinBtn').disabled = true;
-    document.getElementById('centerBtn').disabled = true;
+
+    const n = activeNames.length;
+    const arc = (2 * Math.PI) / n;
+    winnerIdx = Math.floor(Math.random() * n);
+
+    const pointerAngle = -Math.PI / 2;
+    const winnerMid = currentAngle + winnerIdx * arc + arc / 2;
+    let delta = pointerAngle - winnerMid;
+    delta = ((delta % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+    delta += (6 + Math.floor(Math.random() * 5)) * 2 * Math.PI;
+
+    const startAngle = currentAngle;
+    const duration = 7000;
+    let startTime = null;
+
+    function animate(ts) {
+      if (!startTime) startTime = ts;
+      const elapsed = ts - startTime;
+      const t = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - t, 5);
+      currentAngle = startAngle + delta * ease;
+      drawWheel();
+      if (t < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        currentAngle = (startAngle + delta) % (2 * Math.PI);
+        spinning = false;
+        highlightIdx = winnerIdx;
+        drawWheel();
+        showResult();
+      }
+    }
+    requestAnimationFrame(animate);
   }
 
-  drawWheel();
-  document.getElementById('resultOverlay').classList.remove('show');
-}
-
-function updateEliminatedPanel() {
-  document.getElementById('elimCount').textContent = eliminated.length;
-  const list = document.getElementById('elimList');
-  if (eliminated.length === 0) {
-    list.innerHTML = '<p class="no-elim">Nadie eliminado aún</p>';
-    return;
+  function showResult() {
+    document.getElementById('modalWinnerName').textContent = activeNames[winnerIdx];
+    document.getElementById('resultModal').classList.add('active');
   }
-  list.innerHTML = eliminated.map((name, i) =>
-    `<div class="elim-item">${i + 1}. ${name}</div>`
-  ).join('');
-  // Scroll al final
-  list.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
 
-// ==================== RESET ====================
-function resetWheel() {
-  if (isSpinning) return;
-  if (!confirm('¿Reiniciar la ruleta con todos los participantes?')) return;
-  names = [...ALL_NAMES];
-  eliminated = [];
-  currentAngle = 0;
-  winnerIdx = -1;
-  updateEliminatedPanel();
-  updateCountLabel();
-  document.getElementById('spinBtn').disabled = false;
-  document.getElementById('centerBtn').disabled = false;
-  drawWheel();
-}
+  function continueWithout() {
+    document.getElementById('resultModal').classList.remove('active');
+    document.getElementById('spinBtn').disabled = false;
+    highlightIdx = -1;
+    drawWheel();
+  }
+
+  function eliminate() {
+    const name = activeNames[winnerIdx];
+    eliminatedNames.push(name);
+    activeNames.splice(winnerIdx, 1);
+    highlightIdx = -1;
+    winnerIdx = -1;
+    document.getElementById('resultModal').classList.remove('active');
+    document.getElementById('spinBtn').disabled = activeNames.length < 2;
+    updateUI();
+    drawWheel();
+  }
+
+  function updateUI() {
+    document.getElementById('activeCount').textContent = activeNames.length;
+    document.getElementById('eliminatedCount').textContent = eliminatedNames.length;
+    const list = document.getElementById('eliminatedList');
+    if (eliminatedNames.length === 0) {
+      list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div>Nadie eliminado aún</div>';
+    } else {
+      list.innerHTML = eliminatedNames.map((name, i) =>
+        `<div class="eliminated-item">
+          <div class="eliminated-num">${i+1}</div>
+          <div class="eliminated-name">${name}</div>
+        </div>`
+      ).reverse().join('');
+    }
+  }
+
+  function resetAll() {
+    if (!confirm('¿Restaurar los 41 participantes y borrar los eliminados?')) return;
+    activeNames = [...ALL_NAMES];
+    eliminatedNames = [];
+    highlightIdx = -1;
+    winnerIdx = -1;
+    currentAngle = 0;
+    document.getElementById('spinBtn').disabled = false;
+    updateUI();
+    drawWheel();
+  }
 </script>
 </body>
 </html>
