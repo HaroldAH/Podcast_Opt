@@ -353,6 +353,64 @@
     }
     .question-item.active .question-text { color: var(--foreground); }
 
+    /* ── QUESTION OVERLAY ── */
+    .question-overlay {
+      position: fixed; inset: 0; z-index: 600;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+      padding: 40px;
+    }
+    .question-overlay.active { opacity: 1; pointer-events: all; }
+    .question-overlay-box {
+      max-width: 820px; width: 100%;
+      text-align: center;
+      transform: scale(0.92);
+      transition: transform 0.3s;
+    }
+    .question-overlay.active .question-overlay-box { transform: scale(1); }
+    .question-overlay-num {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 28px;
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+    }
+    .question-overlay-num::before,
+    .question-overlay-num::after {
+      content: '';
+      width: 60px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--primary));
+    }
+    .question-overlay-num::after {
+      background: linear-gradient(to left, transparent, var(--primary));
+    }
+    .question-overlay-text {
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--foreground);
+      letter-spacing: 0.01em;
+    }
+    .question-overlay-close {
+      position: absolute;
+      top: 28px; right: 32px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 44px; height: 44px;
+      color: var(--muted);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .question-overlay-close:hover { background: rgba(255,255,255,0.12); color: var(--foreground); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .main-layout { grid-template-columns: 1fr 240px; height: auto; }
@@ -471,6 +529,15 @@
       </div>
       <button class="reset-btn" onclick="resetAll()">↺ Reiniciar todos los participantes</button>
     </div>
+  </div>
+</div>
+
+<!-- QUESTION OVERLAY -->
+<div class="question-overlay" id="questionOverlay" onclick="closeQuestion(event)">
+  <button class="question-overlay-close" onclick="closeQuestionBtn()">✕</button>
+  <div class="question-overlay-box">
+    <div class="question-overlay-num" id="overlayNum">Pregunta 01</div>
+    <div class="question-overlay-text" id="overlayText"></div>
   </div>
 </div>
 
@@ -730,6 +797,19 @@
   function selectQuestion(el) {
     document.querySelectorAll('.question-item').forEach(q => q.classList.remove('active'));
     el.classList.add('active');
+    document.getElementById('overlayNum').textContent = el.querySelector('.question-num').textContent;
+    document.getElementById('overlayText').textContent = el.querySelector('.question-text').textContent;
+    document.getElementById('questionOverlay').classList.add('active');
+  }
+
+  function closeQuestionBtn() {
+    document.getElementById('questionOverlay').classList.remove('active');
+  }
+
+  function closeQuestion(e) {
+    if (e.target === document.getElementById('questionOverlay')) {
+      document.getElementById('questionOverlay').classList.remove('active');
+    }
   }
 
   function resetAll() {
