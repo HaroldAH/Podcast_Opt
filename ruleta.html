@@ -105,7 +105,7 @@
 
     .main-layout {
       display: grid;
-      grid-template-columns: 1fr 280px;
+      grid-template-columns: 270px 1fr 270px;
       gap: 0;
       height: calc(100vh - 65px);
     }
@@ -291,7 +291,73 @@
     }
     .modal-btn-eliminate:hover { opacity: 0.85; }
 
+    /* ── QUESTIONS PANEL ── */
+    .questions-panel {
+      border-right: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .questions-panel-header {
+      padding: 20px 20px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .questions-panel-header h3 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .questions-panel-header p {
+      font-size: 0.72rem;
+      color: rgba(240,240,245,0.3);
+      line-height: 1.4;
+    }
+    .questions-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    .questions-list::-webkit-scrollbar { width: 4px; }
+    .questions-list::-webkit-scrollbar-track { background: transparent; }
+    .questions-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .question-item {
+      padding: 12px 10px;
+      border-radius: 8px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .question-item:hover { background: rgba(255,255,255,0.04); }
+    .question-item.active {
+      background: oklch(0.85 0.18 192 / 0.08);
+      border-color: oklch(0.85 0.18 192 / 0.25);
+    }
+    .question-num {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .question-item.active .question-num { color: var(--primary); }
+    .question-text {
+      font-size: 0.78rem;
+      color: rgba(240,240,245,0.65);
+      line-height: 1.45;
+    }
+    .question-item.active .question-text { color: var(--foreground); }
+
     /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .main-layout { grid-template-columns: 1fr 240px; height: auto; }
+      .questions-panel { display: none; }
+    }
     @media (max-width: 768px) {
       .main-layout { grid-template-columns: 1fr; height: auto; }
       .side-panel { border-left: none; border-top: 1px solid var(--border); max-height: 300px; }
@@ -318,10 +384,61 @@
 <div id="app">
   <header class="app-header">
     <div class="app-logo">HF<span>_</span>AVILA &nbsp;<span style="color:var(--muted);font-weight:400;font-size:0.9rem">Ruleta</span></div>
-    <div class="header-count">Participantes activos: <strong id="activeCount">41</strong></div>
+    <div class="header-count">Participantes activos: <strong id="activeCount">38</strong></div>
   </header>
 
   <div class="main-layout">
+    <!-- QUESTIONS PANEL -->
+    <div class="questions-panel">
+      <div class="questions-panel-header">
+        <h3>Preguntas de Reflexión</h3>
+        <p>Toca una pregunta para resaltarla al seleccionar un participante</p>
+      </div>
+      <div class="questions-list" id="questionsList">
+
+        <div class="question-item" onclick="selectQuestion(this)">
+          <div class="question-num">Pregunta 01</div>
+          <div class="question-text">¿Crees que todas las personas deberían tener una impresora 3D en casa, sabiendo que con ella se pueden crear armas de fuego?</div>
+        </div>
+
+        <div class="question-item" onclick="selectQuestion(this)">
+          <div class="question-num">Pregunta 02</div>
+          <div class="question-text">¿El problema de las armas impresas en 3D es de tecnología o de cultura? ¿Cambiaría algo si se prohibiera la tecnología?</div>
+        </div>
+
+        <div class="question-item" onclick="selectQuestion(this)">
+          <div class="question-num">Pregunta 03</div>
+          <div class="question-text">¿Crees que en 20 años la impresión 3D reemplazará las fábricas tradicionales? ¿Qué pasaría con los empleos?</div>
+        </div>
+
+        <div class="question-item" onclick="selectQuestion(this)">
+          <div class="question-num">Pregunta 04</div>
+          <div class="question-text">Si una impresora 3D costara $50 y cualquier persona pudiera tenerla, ¿crees que el mundo mejoraría o empeoraría?</div>
+        </div>
+
+        <div class="question-item" onclick="selectQuestion(this)">
+          <div class="question-num">Pregunta 05</div>
+          <div class="question-text">¿La impresión 3D beneficia más a las grandes empresas o al ciudadano común? ¿Por qué?</div>
+        </div>
+
+        <div class="question-item" onclick="selectQuestion(this)">
+          <div class="question-num">Pregunta 06</div>
+          <div class="question-text">¿Crees que imprimir órganos humanos en 3D debería estar disponible para todos o solo para quienes puedan pagarlo?</div>
+        </div>
+
+        <div class="question-item" onclick="selectQuestion(this)">
+          <div class="question-num">Pregunta 07</div>
+          <div class="question-text">¿Podría la impresión 3D ayudar a resolver el problema de la vivienda en países en desarrollo? ¿O es solo tecnología para ricos?</div>
+        </div>
+
+        <div class="question-item" onclick="selectQuestion(this)">
+          <div class="question-num">Pregunta 08</div>
+          <div class="question-text">Si pudieras imprimir cualquier objeto sin costo, ¿qué sería lo primero que harías y por qué?</div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- WHEEL -->
     <div class="wheel-area">
       <div class="glow-bg glow-bg-1"></div>
@@ -391,7 +508,6 @@
   const ALL_NAMES = [
     'EVELYN SALAZAR GODINEZ',
     'MARIA BORBON ANGULO',
-    'DANIA QUIROS ZUÑIGA',
     'ANA URBINA PEREZ',
     'ALLISSON SANCHEZ VILLALOBOS',
     'JOSE FALLAS FONSECA',
@@ -421,8 +537,6 @@
     'KEILYN CAMACHO ABARCA',
     'ANAIS BLANCO VARGAS',
     'JUAN VARGAS GAMBOA',
-    'EDICSON PICADO QUESADA',
-    'HAROLD AVILA HERNANDEZ',
     'ERICK ABARCA UREÑA',
     'MARIA CASTRO SALAZAR',
     'KEVIN PRENDAS CERDAS',
@@ -613,8 +727,13 @@
     }
   }
 
+  function selectQuestion(el) {
+    document.querySelectorAll('.question-item').forEach(q => q.classList.remove('active'));
+    el.classList.add('active');
+  }
+
   function resetAll() {
-    if (!confirm('¿Restaurar los 41 participantes y borrar los eliminados?')) return;
+    if (!confirm('¿Restaurar los 38 participantes y borrar los eliminados?')) return;
     activeNames = [...ALL_NAMES];
     eliminatedNames = [];
     highlightIdx = -1;
